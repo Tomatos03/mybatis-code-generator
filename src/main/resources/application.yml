@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: code-generator
+  profiles:
+    active: dev
+  datasource:
+    username: ${spring.datasource.username}
+    password: ${spring.datasource.password}
+    url: ${spring.datasource.url}
+    driver-class-name: ${spring.datasource.driver-class-name}
+
+code-generator:
+  author: ${code-generator.author}
+  package-name: ${code-generator.package-name}
+  table-prefix: ${code-generator.table-prefix}
+#  path-rule-map:
+#    entity: ${code-generator.path-rule-map.entity}
+#    condition-entity: ${code-generator.path-rule-map.condition-entity}
+#    dto-entity: ${code-generator.path-rule-map.dto-entity}
+#    controller: ${code-generator.path-rule.controller}
+#    service-interface: ${code-generator.path-rule.service-interface}
+#    service: ${code-generator.path-rule.service}
+#    mapper: ${code-generator.path-rule.mapper}
+
+server:
+  port: 8888

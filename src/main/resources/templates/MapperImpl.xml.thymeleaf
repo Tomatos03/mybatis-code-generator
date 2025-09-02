@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="[[${mapperFullClassName}]]">
+    <insert id="add" parameterType="[[${entityFullClassName}]]" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO [[${tableName}]]
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+        [# th:each="column : ${columns}" __]
+            <if test="[[${column.name}]] != null[# th:if="${column.isString}" __] and [[${column.name}]] != ''[/]">[[${column.dbName}]],</if>
+        [/]
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+        [# th:each="column : ${columns}" __]
+            <if test="[[${column.name}]] != null[# th:if="${column.isString}" __] and [[${column.name}]] != ''[/]">#{[[${column.name}]]},</if>
+        [/]
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="[[${entityFullClassName}]]">
+        UPDATE [[${tableName}]]
+        <set>
+        [# th:each="column : ${columns}" __]
+            <if test="[[${column.name}]] != null[# th:if='${column.isString}' __] and [[${column.name}]] != ''[/]"> [[${column.dbName}]] = #{[[${column.name}]]}, </if>
+        [/]
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="long">
+        DELETE FROM [[${tableName}]]
+        WHERE id = #{id}
+    </delete>
+
+    <select id="queryByCondition" parameterType="[[${conditionEntityFullClassName}]]" resultMap="[[${ClassName}]]ResultMap">
+        SELECT
+        <include refid="queryColumn"/>
+        FROM [[${tableName}]]
+        <include refid="queryWhere"/>
+    </select>
+
+    <resultMap type="[[${entityFullClassName}]]" id="[[${ClassName}]]ResultMap">
+        [# th:each="column : ${columns}" __]
+        <result property="[[${column.name}]]" column="[[${column.dbName}]]"/>
+        [/]
+    </resultMap>
+
+    <sql id="queryColumn">
+    [# th:each="column : ${columns}" __]
+        [[${column.name}]],
+    [/]
+    </sql>
+
+    <sql id="queryWhere">
+        <where>
+        [# th:each="column : ${columns}" __]
+            <if test="[[${column.name}]] != null[# th:if="${column.isString}" __] and [[${column.name}]] != ''[/]">[[${column.dbName}]],</if>
+        [/]
+        </where>
+    </sql>
+</mapper>

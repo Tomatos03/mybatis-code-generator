@@ -1,0 +1,37 @@
+spring:
+  datasource:
+    username: Tomatos
+    password: 20030503
+    url: jdbc:mariadb://localhost:3306/my_mall
+    driver-class-name: org.mariadb.jdbc.Driver
+
+code-generator:
+  author: "Tomatos"
+  package-name: "org.demo.study"
+  table-prefix: "sys_"
+  path-rule-map:
+    entity:
+      model-path: "entity"
+      suffix: "DO"
+    condition-entity:
+      model-path: "condition"
+      suffix: "Condition"
+    dto-entity:
+      model-path: "dto"
+      suffix: "DTO"
+    controller:
+      model-path: "controller"
+      suffix: "Controller"
+    service-interface:
+      model-path: "service"
+      suffix: "Service"
+      prefix: "I"
+    service:
+      model-path: "service/impl"
+      suffix: "ServiceImpl"
+    mapper:
+      model-path: "mapper"
+      suffix: "Mapper"
+    mapper-xml:
+      model-path: "mapper/xml"
+      suffix: "Mapper"

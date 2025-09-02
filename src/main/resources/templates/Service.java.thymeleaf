@@ -1,0 +1,49 @@
+package [[${packageName}]].[[${serviceModelName}]];
+
+import [[${packageName}]].[[${dtoModelName}]].[[${dtoClassName}]];
+import [[${packageName}]].[[${entityModelName}]].[[${entityClassName}]];
+import [[${packageName}]].[[${serviceInterfaceModelName}]].[[${serviceInterfaceClassName}]];
+import [[${packageName}]].[[${conditionModelName}]].[[${conditionClassName}]];
+
+import [[${packageName}]].[[${{mapperModelName}}]].[[${mapperClassName}]];
+import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import cn.hutool.core.bean.BeanUtil;
+import java.util.List;
+
+/**
+ * 服务层
+ *
+ * @author [[${author}]]
+ * @date [[${nowDateTime}]]
+ */
+@Service
+public class [[${serviceClassName}]] implements [[${serviceInterfaceClassName}]] {
+    @Autowired
+    private [[${mapperClassName}]] [[${mapperInstance}]];
+
+    @Override
+    public int add([[${dtoClassName}]] dto) {
+        [[${entityClassName}]] entity = BeanUtil.copyProperties(dto, [[${entityClassName}]].class);
+        return [[${mapperInstance}]].add(entity);
+    }
+
+    @Override
+    public int update([[${dtoClassName}]] dto) {
+        [[${entityClassName}]] entity = BeanUtil.copyProperties(dto, [[${entityClassName}]].class);
+        return [[${mapperInstance}]].update(entity);
+    }
+
+    @Override
+    public int delete(Long id) {
+        return [[${mapperInstance}]].delete(id);
+    }
+
+    @Override
+    public List<[[${dtoClassName}]]> searchByCondition([[${conditionClassName}]] condition) {
+        List<[[${entityClassName}]]> userDOS = userMapper.queryByCondition(condition);
+        return userDOS.stream()
+                      .map(entity -> BeanUtil.copyProperties(entity, [[${dtoClassName}]].class))
+                      .toList();
+    }
+}

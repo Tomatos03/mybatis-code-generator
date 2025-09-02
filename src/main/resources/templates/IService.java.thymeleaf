@@ -1,0 +1,34 @@
+package [[${packageName}]].[[${{serviceInterfaceModelName}}]];
+
+import [[${packageName}]].[[${dtoModelName}]].[[${dtoClassName}]];
+import [[${packageName}]].[[${conditionModelName}]].[[${conditionClassName}]];
+import java.util.List;
+
+/**
+ *
+ *
+ * @author [[${author}]]
+ * @date [[${nowDateTime}]]
+ */
+public interface [[${serviceInterfaceClassName}]] {
+
+    /**
+     * 新增
+     */
+    int add([[${dtoClassName}]] dto);
+
+    /**
+     * 修改
+     */
+    int update([[${dtoClassName}]] dto);
+
+    /**
+     * 删除
+     */
+    int delete(Long id);
+
+    /**
+     * 条件查询
+     */
+    List<[[${dtoClassName}]]> searchByCondition([[${conditionClassName}]] condition);
+}

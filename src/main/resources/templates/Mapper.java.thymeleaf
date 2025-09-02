@@ -1,0 +1,23 @@
+package [[${packageName}]].[[${{mapperModelName}}]];
+
+import [[${packageName}]].[[${entityModelName}]].[[${entityClassName}]];
+import [[${packageName}]].[[${conditionModelName}]].[[${conditionClassName}]];
+import org.apache.ibatis.annotations.Mapper;
+import java.util.List;
+
+/**
+ * 数据访问层
+ *
+ * @author [[${author}]]
+ * @date [[${nowDateTime}]]
+ */
+@Mapper
+public interface [[${mapperClassName}]] {
+    int add([[${entityClassName}]] entity);
+
+    int update([[${entityClassName}]] entity);
+
+    int delete(Long id);
+
+    List<[[${entityClassName}]]> queryByCondition([[${conditionClassName}]] condition);
+}

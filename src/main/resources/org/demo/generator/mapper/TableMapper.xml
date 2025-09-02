@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.demo.generator.mapper.TableMapper">
+    <resultMap id="TableInfoResultMap" type="org.demo.generator.entity.database.TableInfo">
+        <id property="tableName" column="tableName"/>
+<!--        <result property="tableComment" column="tableComment"/>-->
+<!--        <result property="primaryKey" column="primaryKey"/>-->
+        <collection property="columns" ofType="org.demo.generator.entity.database.ColumnInfo">
+            <result property="dbName" column="columnName"/>
+            <result property="type" column="columnType"/>
+            <result property="isNull" column="isNullable"/>
+            <result property="isPrimaryKey" column="columnKey"/>
+            <result property="comment" column="columnComment"/>
+        </collection>
+    </resultMap>
+
+    <select id="query" resultMap="TableInfoResultMap" parameterType="string">
+        SELECT
+            'sys_user'  AS tableName,
+            COLUMN_NAME AS columnName,
+            DATA_TYPE AS columnType,
+            IS_NULLABLE AS isNullable,
+            COLUMN_KEY AS columnKey,
+            COLUMN_COMMENT AS columnComment
+        FROM
+            information_schema.COLUMNS
+        WHERE
+            TABLE_SCHEMA = DATABASE() AND
+            TABLE_NAME = #{tableName}
+    </select>
+</mapper>

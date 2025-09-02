@@ -1,0 +1,54 @@
+package [[${packageName}]].[[${{controllerModelName}}]];
+
+import [[${packageName}]].[[${dtoModelName}]].[[${dtoClassName}]];
+import [[${packageName}]].[[${conditionModelName}]].[[${conditionClassName}]];
+import [[${packageName}]].[[${serviceInterfaceModelName}]].[[${serviceInterfaceClassName}]];
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
+
+/**
+ * 控制层
+ *
+ * @author [[${author}]]
+ * @date [[${nowDateTime}]]
+ */
+@RestController
+@RequestMapping("/[[${requestPath}]]")
+public class [[${controllerClassName}]] {
+
+    @Autowired
+    private [[${serviceInterfaceClassName}]] [[${serviceInstance}]];
+
+    /**
+     * 新增
+     */
+    @PostMapping("/add")
+    public int add(@RequestBody [[${className}]]DTO dto) {
+        return [[${serviceInstance}]].add(dto);
+    }
+
+    /**
+     * 修改
+     */
+    @PutMapping("/update")
+    public int update(@RequestBody [[${className}]]DTO dto) {
+        return [[${serviceInstance}]].update(dto);
+    }
+
+    /**
+     * 删除
+     */
+    @DeleteMapping("/delete/{id}")
+    public int delete(@PathVariable Long id) {
+        return [[${serviceInstance}]].delete(id);
+    }
+
+    /**
+     * 条件查询
+     */
+    @PostMapping("/query")
+    public List<[[${dtoClassName}]]> query(@RequestBody [[${conditionClassName}]] condition) {
+        return [[${serviceInstance}]].searchByCondition(condition);
+    }
+}
