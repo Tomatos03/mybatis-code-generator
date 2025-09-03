@@ -1,0 +1,23 @@
+package [[${packageName}]].[[${{conditionModelName}}]];
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import java.time.LocalDateTime;
+
+/** [[${tableComment}]]实体
+ *
+ * @author [[${author}]]
+ * @date [[${nowDateTime}]]
+ */
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+public class [[${conditionClassName}]] {
+ [# th:each="column : ${columns}" th:if="${!#lists.contains({'id','createUserId','createUserName','createTime','updateUserId','updateUserName','updateTime','isDel'}, column.name)}" __]
+     /**
+      * [[${column?.comment}]]
+      */
+     private [[${column.type}]] [[${column.name}]];
+
+[/]}

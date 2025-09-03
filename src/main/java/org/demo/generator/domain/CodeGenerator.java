@@ -41,6 +41,14 @@ public class CodeGenerator {
         );
     }
 
+    public static String generateCondition(GenerateParam param) {
+        log.info("生成Condition-Entity代码");
+        return templateEngine().process(
+                "Condition",
+                getConditionContext(param)
+        );
+    }
+
     public static String generateDTOEntity(GenerateParam param) {
         log.info("生成DTOEntity代码");
         return templateEngine().process(
@@ -106,6 +114,17 @@ public class CodeGenerator {
         String dtoEntityClassName = buildConcatenatedClassName(DTO, param.getClassName());
         context.setVariable("dtoEntityClassName", dtoEntityClassName);
         context.setVariable("dtoEntityModelName", getModelName(DTO));
+        return context;
+    }
+
+    private static Context getConditionContext(GenerateParam param) {
+        Context context = new Context();
+        setCommonVar(context, param);
+        context.setVariable("columns", convert(param.getColumns()));
+
+        context.setVariable("conditionClassName", buildConcatenatedClassName(CONDITION,
+                                                                             param.getClassName()));
+        context.setVariable("conditionModelName", getModelName(CONDITION));
         return context;
     }
 

@@ -17,7 +17,7 @@ import java.util.function.Function;
 @AllArgsConstructor
 public enum GenerateTypeEnum {
     ENTITY    ("entity", CodeGenerator::generateEntity),
-    CONDITION ("condition-entity", null),
+    CONDITION ("condition-entity", CodeGenerator::generateCondition),
     DTO       ("dto-entity", CodeGenerator::generateDTOEntity),
     MAPPER    ("mapper", CodeGenerator::generateMapper),
     MAPPER_XML    ("mapper-xml", CodeGenerator::generateMapperXml),
