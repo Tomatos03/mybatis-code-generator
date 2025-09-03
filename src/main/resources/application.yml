@@ -15,7 +15,7 @@ spring:
 code-generator:
   author: "Tomatos"
   package-name: "org.demo.study"
-  table-prefix: "sys_"
+  table-prefix: "sys_" # 实际的类名 = 表名去掉表前缀首写第一个大写字母
   path-rule-map:
     entity:
       model-path: "entity"
