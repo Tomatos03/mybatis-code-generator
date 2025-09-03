@@ -42,7 +42,11 @@ public class GeneratorService {
                 StrUtil.removePrefix(tableName, config.getTablePrefix()));
 
         List<ZipFileDO> files = Arrays.stream(GenerateTypeEnum.values())
-                                      .filter(type -> type.getGenerator() != null)
+                                      .filter(type -> type.getGenerator() != null
+                                              && config.getPathRuleMap()
+                                                       .get(type.getValue())
+                                                       .getModelPath() != null
+                                      )
                                       .map(type -> buildZipFile(type,
                                                                 tableName,
                                                                 className,
