@@ -2,6 +2,7 @@ package org.demo.generator.service;
 
 import cn.hutool.core.util.StrUtil;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.demo.generator.config.code.GeneratorConfig;
 import org.demo.generator.config.code.PathRule;
 import org.demo.generator.entity.database.TableInfo;
@@ -29,6 +30,7 @@ import java.util.zip.ZipOutputStream;
  * @author : Tomatos
  * @date : 2025/9/1
  */
+@Slf4j
 @Service
 public class GeneratorService {
     @Autowired
@@ -38,6 +40,11 @@ public class GeneratorService {
 
     public void generatorCode(String tableName, HttpServletResponse response) throws Exception {
         TableInfo tableInfo = tableMapper.query(tableName);
+        if (tableInfo == null) {
+            log.error("找不到数据库表: {}", tableName);
+            return;
+        }
+
         String className = StrUtil.upperFirst(
                 StrUtil.removePrefix(tableName, config.getTablePrefix()));
 
