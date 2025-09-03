@@ -1,26 +1,44 @@
+server:
+  port: 8888
+
 spring:
   application:
     name: code-generator
   profiles:
     active: dev
   datasource:
-    username: ${spring.datasource.username}
-    password: ${spring.datasource.password}
-    url: ${spring.datasource.url}
-    driver-class-name: ${spring.datasource.driver-class-name}
+    username: ${DATASOURCE_USERNAME}
+    password: ${DATASOURCE_PASSWORD}
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: "jdbc:mariadb://${DATASOURCE_HOST:localhost}:${DATASOURCE_PORT:3306}/my_mall?&characterEncoding=utf8"
 
 code-generator:
-  author: ${code-generator.author}
-  package-name: ${code-generator.package-name}
-  table-prefix: ${code-generator.table-prefix}
-#  path-rule-map:
-#    entity: ${code-generator.path-rule-map.entity}
-#    condition-entity: ${code-generator.path-rule-map.condition-entity}
-#    dto-entity: ${code-generator.path-rule-map.dto-entity}
-#    controller: ${code-generator.path-rule.controller}
-#    service-interface: ${code-generator.path-rule.service-interface}
-#    service: ${code-generator.path-rule.service}
-#    mapper: ${code-generator.path-rule.mapper}
-
-server:
-  port: 8888
+  author: "Tomatos"
+  package-name: "org.demo.study"
+  table-prefix: "sys_"
+  path-rule-map:
+    entity:
+      model-path: "entity"
+      suffix: "DO"
+    condition-entity:
+      model-path: "condition"
+      suffix: "Condition"
+    dto-entity:
+      model-path: "dto"
+      suffix: "DTO"
+    controller:
+      model-path: "controller"
+      suffix: "Controller"
+    service-interface:
+      model-path: "service"
+      suffix: "Service"
+      prefix: "I"
+    service:
+      model-path: "service/impl"
+      suffix: "ServiceImpl"
+    mapper:
+      model-path: "mapper"
+      suffix: "Mapper"
+    mapper-xml:
+      model-path: "mapper/xml"
+      suffix: "Mapper"
