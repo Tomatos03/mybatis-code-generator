@@ -211,6 +211,9 @@ public class CodeGenerator {
         context.setVariable("nowDateTime", LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         context.setVariable("packageName", param.getPackageName());
         context.setVariable("className", param.getClassName());
+
+        List<ColumnInfo> columns = param.getColumns();
+        columns.get(columns.size() - 1).setEndColumn(true);
     }
 
     private static Context getMapperXMLContext(GenerateParam param) {
@@ -228,6 +231,7 @@ public class CodeGenerator {
         context.setVariable("entityFullClassName", entityFullClassName);
         context.setVariable("conditionEntityFullClassName", conditionFullClassName);
         context.setVariable("columns", convert(param.getColumns()));
+        context.setVariable("className", param.getClassName());
         return context;
     }
 

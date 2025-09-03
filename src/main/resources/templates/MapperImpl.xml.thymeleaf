@@ -4,26 +4,19 @@
 <mapper namespace="[[${mapperFullClassName}]]">
     <insert id="add" parameterType="[[${entityFullClassName}]]" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO [[${tableName}]]
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-        [# th:each="column : ${columns}" __]
+        <trim prefix="(" suffix=")" suffixOverrides=","> [# th:each="column : ${columns}" __]
             <if test="[[${column.name}]] != null[# th:if="${column.isString}" __] and [[${column.name}]] != ''[/]">[[${column.dbName}]],</if>
-        [/]
-        </trim>
-        VALUES
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-        [# th:each="column : ${columns}" __]
+        [/] </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=","> [# th:each="column : ${columns}" __]
             <if test="[[${column.name}]] != null[# th:if="${column.isString}" __] and [[${column.name}]] != ''[/]">#{[[${column.name}]]},</if>
-        [/]
-        </trim>
+        [/] </trim>
     </insert>
 
     <update id="update" parameterType="[[${entityFullClassName}]]">
         UPDATE [[${tableName}]]
-        <set>
-        [# th:each="column : ${columns}" __]
+        <set> [# th:each="column : ${columns}" __]
             <if test="[[${column.name}]] != null[# th:if='${column.isString}' __] and [[${column.name}]] != ''[/]"> [[${column.dbName}]] = #{[[${column.name}]]}, </if>
-        [/]
-        </set>
+        [/] </set>
         WHERE id = #{id}
     </update>
 
@@ -40,30 +33,25 @@
         </foreach>
     </delete>
 
-    <select id="queryByCondition" parameterType="[[${conditionEntityFullClassName}]]" resultMap="[[${ClassName}]]ResultMap">
+    <select id="searchByCondition" parameterType="[[${conditionEntityFullClassName}]]"
+    resultMap="[[${className}]]ResultMap">
         SELECT
         <include refid="queryColumn"/>
         FROM [[${tableName}]]
         <include refid="queryWhere"/>
     </select>
 
-    <resultMap type="[[${entityFullClassName}]]" id="[[${ClassName}]]ResultMap">
-        [# th:each="column : ${columns}" __]
+    <resultMap type="[[${entityFullClassName}]]" id="[[${className}]]ResultMap"> [# th:each="column : ${columns}" __]
         <result property="[[${column.name}]]" column="[[${column.dbName}]]"/>
-        [/]
-    </resultMap>
+    [/] </resultMap>
 
-    <sql id="queryColumn">
-    [# th:each="column : ${columns}" __]
-        [[${column.name}]],
-    [/]
-    </sql>
+    <sql id="queryColumn"> [# th:each="column : ${columns}" __]
+        [[${column.dbName}]][# th:if='${!column.isEndColumn}' __],[/]
+    [/] </sql>
 
     <sql id="queryWhere">
-        <where>
-        [# th:each="column : ${columns}" __]
-            <if test="[[${column.name}]] != null[# th:if="${column.isString}" __] and [[${column.name}]] != ''[/]">[[${column.dbName}]],</if>
-        [/]
-        </where>
+        <where> [# th:each="column : ${columns}" __]
+            <if test="[[${column.name}]] != null[# th:if='${column.isString}' __] and [[${column.name}]] != ''[/]"> and [[${column.dbName}]] = #{[[${column.name}]]} </if>
+        [/] </where>
     </sql>
 </mapper>

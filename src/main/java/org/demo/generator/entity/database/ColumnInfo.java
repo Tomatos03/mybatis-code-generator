@@ -46,4 +46,9 @@ public class ColumnInfo {
     private String comment;
 
     private boolean isString;
+
+    /**
+     * 是否为最后一列
+     */
+    private boolean isEndColumn = false;
 }
