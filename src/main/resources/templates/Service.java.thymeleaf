@@ -46,4 +46,9 @@ public class [[${serviceClassName}]] implements [[${serviceInterfaceClassName}]]
                       .map(entity -> BeanUtil.copyProperties(entity, [[${dtoClassName}]].class))
                       .toList();
     }
+
+    @Override
+    public int deleteByIds(List<Long> ids) {
+        return [[${mapperInstance}]].deleteByIds(ids);
+    }
 }

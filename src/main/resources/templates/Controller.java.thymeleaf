@@ -51,4 +51,12 @@ public class [[${controllerClassName}]] {
     public List<[[${dtoClassName}]]> query(@RequestBody [[${conditionClassName}]] condition) {
         return [[${serviceInstance}]].searchByCondition(condition);
     }
+
+    /**
+     * 批量删除
+     */
+    @PostMapping("/deleteByIds")
+    public int deleteByIds(@RequestBody List<Long> ids) {
+        return [[${serviceInstance}]].deleteByIds(ids);
+    }
 }

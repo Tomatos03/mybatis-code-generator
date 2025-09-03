@@ -19,5 +19,7 @@ public interface [[${mapperClassName}]] {
 
     int delete(Long id);
 
+    int deleteByIds(List<Long> ids);
+
     List<[[${entityClassName}]]> queryByCondition([[${conditionClassName}]] condition);
 }

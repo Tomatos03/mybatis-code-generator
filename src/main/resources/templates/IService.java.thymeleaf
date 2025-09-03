@@ -31,4 +31,9 @@ public interface [[${serviceInterfaceClassName}]] {
      * 条件查询
      */
     List<[[${dtoClassName}]]> searchByCondition([[${conditionClassName}]] condition);
+
+    /**
+     * 批量删除
+     */
+    int deleteByIds(List<Long> ids);
 }
