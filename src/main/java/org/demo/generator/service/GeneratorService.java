@@ -1,13 +1,14 @@
 package org.demo.generator.service;
 
+import cn.hutool.core.text.NamingCase;
 import cn.hutool.core.util.StrUtil;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.demo.generator.config.code.GeneratorConfig;
 import org.demo.generator.config.code.PathRule;
-import org.demo.generator.entity.database.TableInfo;
 import org.demo.generator.entity.GenerateParam;
 import org.demo.generator.entity.ZipFileDO;
+import org.demo.generator.entity.database.TableInfo;
 import org.demo.generator.enums.GenerateTypeEnum;
 import org.demo.generator.mapper.TableMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,8 +46,9 @@ public class GeneratorService {
             return;
         }
 
-        String className = StrUtil.upperFirst(
-                StrUtil.removePrefix(tableName, config.getTablePrefix()));
+        String className = NamingCase.toPascalCase(
+                StrUtil.removePrefix(tableName, config.getTablePrefix())
+        );
 
         List<ZipFileDO> files = Arrays.stream(GenerateTypeEnum.values())
                                       .filter(type -> type.getGenerator() != null
