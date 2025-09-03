@@ -16,7 +16,7 @@
 
     <select id="query" resultMap="TableInfoResultMap" parameterType="string">
         SELECT
-            'sys_user'  AS tableName,
+            #{tableName} AS tableName,
             COLUMN_NAME AS columnName,
             DATA_TYPE AS columnType,
             IS_NULLABLE AS isNullable,
