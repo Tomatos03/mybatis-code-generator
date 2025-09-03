@@ -23,7 +23,7 @@ public class GeneratorController {
     @Autowired
     private GeneratorService generatorService;
 
-    @GetMapping("/queryTable/{tableName}")
+    @GetMapping("/code/{tableName}")
     public void generatorCode(@PathVariable String tableName, HttpServletResponse response) throws Exception {
         generatorService.generatorCode(tableName, response);
     }
