@@ -1,6 +1,7 @@
 package org.demo.generator.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -28,11 +29,15 @@ public class GeneratorController {
 
     @Operation(summary = "单表生成")
     @GetMapping("/code/{tableName}")
+    @Parameter(name = "tableName", description = "数据库表名", required = true, example =
+            "sys_user")
     public void generatorCode(@PathVariable String tableName, HttpServletResponse response) throws Exception {
         generatorService.generatorCode(tableName, response);
     }
 
-    @Operation(summary = "多表生成")
+    @Operation(summary = "多表生成",description = "一次性生成多个表的代码")
+    @Parameter(name = "tableNames", description = "数据库中多个表的名称(以逗号分割)", required = true, example =
+            "sys_user, sys_job, sys_dept")
     @GetMapping("/code/batch/{tableNames}")
     public void batchGeneratorCode(@PathVariable String tableNames, HttpServletResponse response) throws Exception {
         generatorService.batchGeneratorCode(tableNames, response);
