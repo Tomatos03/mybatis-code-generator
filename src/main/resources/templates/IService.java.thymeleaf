@@ -15,25 +15,25 @@ public interface [[${serviceInterfaceClassName}]] {
     /**
      * 新增
      */
-    int add([[${dtoClassName}]] dto);
+    int [[${add}]]([[${dtoClassName}]] dto);
 
     /**
      * 修改
      */
-    int update([[${dtoClassName}]] dto);
+    int [[${update}]]([[${dtoClassName}]] dto);
 
     /**
      * 删除
      */
-    int delete(Long id);
+    int [[${delete}]](Long id);
 
     /**
      * 条件查询
      */
-    List<[[${dtoClassName}]]> searchByCondition([[${conditionClassName}]] condition);
+    List<[[${dtoClassName}]]> [[${query}]]ByCondition([[${conditionClassName}]] condition);
 
     /**
      * 批量删除
      */
-    int deleteByIds(List<Long> ids);
+    int [[${delete}]]ByIds(List<Long> ids);
 }

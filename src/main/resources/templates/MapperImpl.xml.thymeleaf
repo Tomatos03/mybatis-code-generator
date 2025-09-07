@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="[[${mapperFullClassName}]]">
-    <insert id="add" parameterType="[[${entityFullClassName}]]" useGeneratedKeys="true" keyProperty="id">
+    <insert id="[[${add}]]" parameterType="[[${entityFullClassName}]]" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO [[${tableName}]]
         <trim prefix="(" suffix=")" suffixOverrides=","> [# th:each="column : ${columns}" __]
             <if test="[[${column.name}]] != null[# th:if="${column.isString}" __] and [[${column.name}]] != ''[/]">[[${column.dbName}]],</if>
@@ -12,7 +12,7 @@
         [/] </trim>
     </insert>
 
-    <update id="update" parameterType="[[${entityFullClassName}]]">
+    <update id="[[${update}]]" parameterType="[[${entityFullClassName}]]">
         UPDATE [[${tableName}]]
         <set> [# th:each="column : ${columns}" __]
             <if test="[[${column.name}]] != null[# th:if='${column.isString}' __] and [[${column.name}]] != ''[/]"> [[${column.dbName}]] = #{[[${column.name}]]}, </if>
@@ -20,12 +20,12 @@
         WHERE id = #{id}
     </update>
 
-    <delete id="delete" parameterType="long">
+    <delete id="[[${delete}]]" parameterType="long">
         DELETE FROM [[${tableName}]]
         WHERE id = #{id}
     </delete>
 
-    <delete id="deleteByIds">
+    <delete id="[[${delete}]]ByIds">
         DELETE FROM [[${tableName}]]
         WHERE id IN
         <foreach collection="ids" item="id" open="(" separator="," close=")">
@@ -33,7 +33,7 @@
         </foreach>
     </delete>
 
-    <select id="searchByCondition" parameterType="[[${conditionEntityFullClassName}]]"
+    <select id="[[${query}]]ByCondition" parameterType="[[${conditionEntityFullClassName}]]"
     resultMap="[[${className}]]ResultMap">
         SELECT
         <include refid="queryColumn"/>

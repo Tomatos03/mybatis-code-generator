@@ -215,6 +215,7 @@ public class CodeGenerator {
         context.setVariable("nowDateTime", LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         context.setVariable("packageName", param.getPackageName());
         context.setVariable("className", param.getClassName());
+        generatorConfig().getCustomMethodName().forEach(context::setVariable);
 
         List<ColumnInfo> columns = param.getColumns();
         columns.get(columns.size() - 1).setEndColumn(true);

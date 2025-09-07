@@ -23,40 +23,40 @@ public class [[${controllerClassName}]] {
     /**
      * 新增
      */
-    @PostMapping("/add")
-    public int add(@RequestBody [[${className}]]DTO dto) {
-        return [[${serviceInstance}]].add(dto);
+    @PostMapping("/[[${add}]]")
+    public int [[${add}]](@RequestBody [[${className}]]DTO dto) {
+        return [[${serviceInstance}]].insert(dto);
     }
 
     /**
      * 修改
      */
-    @PutMapping("/update")
-    public int update(@RequestBody [[${className}]]DTO dto) {
+    @PutMapping("/[[${update}]]")
+    public int [[${update}]](@RequestBody [[${className}]]DTO dto) {
         return [[${serviceInstance}]].update(dto);
     }
 
     /**
      * 删除
      */
-    @DeleteMapping("/delete/{id}")
-    public int delete(@PathVariable Long id) {
+    @DeleteMapping("/[[${delete}]]/{id}")
+    public int [[${delete}]](@PathVariable Long id) {
         return [[${serviceInstance}]].delete(id);
     }
 
     /**
      * 条件查询
      */
-    @PostMapping("/query")
-    public List<[[${dtoClassName}]]> query(@RequestBody [[${conditionClassName}]] condition) {
+    @PostMapping("/[[${query}]]")
+    public List<[[${dtoClassName}]]> [[${query}]]ByCondition(@RequestBody [[${conditionClassName}]] condition) {
         return [[${serviceInstance}]].searchByCondition(condition);
     }
 
     /**
      * 批量删除
      */
-    @PostMapping("/deleteByIds")
-    public int deleteByIds(@RequestBody List<Long> ids) {
+    @PostMapping("/[[${delete}]]ByIds")
+    public int [[${delete}]]ByIds(@RequestBody List<Long> ids) {
         return [[${serviceInstance}]].deleteByIds(ids);
     }
 }

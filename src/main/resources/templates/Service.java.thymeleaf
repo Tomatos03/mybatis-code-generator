@@ -23,24 +23,25 @@ public class [[${serviceClassName}]] implements [[${serviceInterfaceClassName}]]
     private [[${mapperClassName}]] [[${mapperInstance}]];
 
     @Override
-    public int add([[${dtoClassName}]] dto) {
+    public int [[${add}]]([[${dtoClassName}]] dto) {
         [[${entityClassName}]] entity = BeanUtil.copyProperties(dto, [[${entityClassName}]].class);
-        return [[${mapperInstance}]].add(entity);
+        int affects = [[${mapperInstance}]].[[${add}]](entity);
+        return affects;
     }
 
     @Override
-    public int update([[${dtoClassName}]] dto) {
+    public int [[${update}]]([[${dtoClassName}]] dto) {
         [[${entityClassName}]] entity = BeanUtil.copyProperties(dto, [[${entityClassName}]].class);
         return [[${mapperInstance}]].update(entity);
     }
 
     @Override
-    public int delete(Long id) {
+    public int [[${delete}]](Long id) {
         return [[${mapperInstance}]].delete(id);
     }
 
     @Override
-    public List<[[${dtoClassName}]]> searchByCondition([[${conditionClassName}]] condition) {
+    public List<[[${dtoClassName}]]> [[${query}]]ByCondition([[${conditionClassName}]] condition) {
         List<[[${entityClassName}]]> entities = [[${mapperInstance}]].queryByCondition(condition);
         return entities.stream()
                        .map(entity -> BeanUtil.copyProperties(entity, [[${dtoClassName}]].class))
@@ -48,7 +49,7 @@ public class [[${serviceClassName}]] implements [[${serviceInterfaceClassName}]]
     }
 
     @Override
-    public int deleteByIds(List<Long> ids) {
+    public int [[${delete}]]ByIds(List<Long> ids) {
         return [[${mapperInstance}]].deleteByIds(ids);
     }
 }

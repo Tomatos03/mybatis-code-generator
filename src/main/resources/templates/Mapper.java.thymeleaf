@@ -13,13 +13,13 @@ import java.util.List;
  */
 @Mapper
 public interface [[${mapperClassName}]] {
-    int add([[${entityClassName}]] entity);
+    int [[${add}]]([[${entityClassName}]] entity);
 
-    int update([[${entityClassName}]] entity);
+    int [[${update}]]([[${entityClassName}]] entity);
 
-    int delete(Long id);
+    int [[${delete}]](Long id);
 
-    int deleteByIds(List<Long> ids);
+    int [[${delete}]]ByIds(List<Long> ids);
 
-    List<[[${entityClassName}]]> queryByCondition([[${conditionClassName}]] condition);
+    List<[[${entityClassName}]]> [[${query}]]ByCondition([[${conditionClassName}]] condition);
 }

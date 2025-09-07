@@ -24,4 +24,10 @@ public class GeneratorConfig {
     private String tablePrefix;
     private Set<String> classIgnoreFields;
     private Map<String, PathRule> pathRuleMap;
+    private Map<String, String> customMethodName = Map.of(
+            "add", "add",
+            "delete", "delete",
+            "update", "update",
+            "query", "query"
+    );
 }
