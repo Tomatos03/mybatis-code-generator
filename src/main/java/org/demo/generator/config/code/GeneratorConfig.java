@@ -6,6 +6,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
+import java.util.Set;
 
 /**
  *
@@ -21,5 +22,6 @@ public class GeneratorConfig {
     private String author;
     private String packageName;
     private String tablePrefix;
+    private Set<String> classIgnoreFields;
     private Map<String, PathRule> pathRuleMap;
 }

@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Data
 public class [[${entityClassName}]] extends CommonDO {
- [# th:each="column : ${columns}" th:if="${!#lists.contains({'id','createUserId','createUserName','createTime','updateUserId','updateUserName','updateTime','isDel'}, column.name)}" __]
+ [# th:each="column : ${columns}" __]
      /**
       * [[${column?.comment}]]
       */

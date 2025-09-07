@@ -90,6 +90,10 @@ public class CodeGenerator {
                               // 当前列是否为String类型
                               columnInfo.setString("String".equals(columnInfo.getType()));
                           })
+                          .filter(columnInfo -> !generatorConfig()
+                                  .getClassIgnoreFields()
+                                  .contains(columnInfo.getName())
+                          )
                           .toList();
     }
 
