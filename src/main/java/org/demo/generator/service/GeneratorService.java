@@ -19,8 +19,10 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -40,29 +42,35 @@ public class GeneratorService {
     private GeneratorConfig config;
 
     public void generatorCode(String tableName, HttpServletResponse response) throws Exception {
+        List<ZipFileDO> files = getZipFileDOS(tableName);
+        if (files == null)
+            return;
+
+        outZipToBrowser(response, files);
+    }
+
+    private List<ZipFileDO> getZipFileDOS(String tableName) {
         TableInfo tableInfo = tableMapper.query(tableName);
         if (tableInfo == null) {
             log.error("找不到数据库表: {}", tableName);
-            return;
+            return null;
         }
 
         String className = NamingCase.toPascalCase(
                 StrUtil.removePrefix(tableName, config.getTablePrefix())
         );
 
-        List<ZipFileDO> files = Arrays.stream(GenerateTypeEnum.values())
-                                      .filter(type -> type.getGenerator() != null
+        return Arrays.stream(GenerateTypeEnum.values())
+                     .filter(type -> type.getGenerator() != null
                                               && config.getPathRuleMap()
                                                        .get(type.getValue())
                                                        .getModelPath() != null
                                       )
-                                      .map(type -> buildZipFile(type,
+                     .map(type -> buildZipFile(type,
                                                                 tableName,
                                                                 className,
                                                                 tableInfo))
-                                      .toList();
-
-        outZipToBrowser(response, files);
+                     .toList();
     }
 
     private ZipFileDO buildZipFile(GenerateTypeEnum type,
@@ -121,5 +129,17 @@ public class GeneratorService {
         response.setContentType(MediaType.APPLICATION_OCTET_STREAM_VALUE);
         response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"code.zip\"");
         response.setCharacterEncoding(StandardCharsets.UTF_8.toString());
+    }
+
+    public void batchGeneratorCode(String tableNames, HttpServletResponse response) throws IOException {
+        List<String> tableNameList = Arrays.stream(tableNames.split(","))
+                                           .map(String::trim)
+                                           .toList();
+        List<ZipFileDO> files = new ArrayList<>();
+        for (String tableName : tableNameList) {
+            files.addAll(Objects.requireNonNull(getZipFileDOS(tableName)));
+        }
+
+        outZipToBrowser(response, files);
     }
 }

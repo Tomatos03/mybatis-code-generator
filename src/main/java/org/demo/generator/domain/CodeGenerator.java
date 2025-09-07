@@ -34,7 +34,7 @@ public class CodeGenerator {
     };
 
     public static String generateEntity(GenerateParam param) {
-        log.info("生成Entity代码");
+        log.info("生成{}表的Entity代码", param.getTableName());
         return templateEngine().process(
                 "Entity",
                 getEntityContext(param)
@@ -42,7 +42,7 @@ public class CodeGenerator {
     }
 
     public static String generateCondition(GenerateParam param) {
-        log.info("生成Condition-Entity代码");
+        log.info("生成{}表的Condition-Entity代码", param.getTableName());
         return templateEngine().process(
                 "Condition",
                 getConditionContext(param)
@@ -50,7 +50,7 @@ public class CodeGenerator {
     }
 
     public static String generateDTOEntity(GenerateParam param) {
-        log.info("生成DTOEntity代码");
+        log.info("生成{}表的DTOEntity代码", param.getTableName());
         return templateEngine().process(
                 "DTO",
                 getDTOEntityContext(param)
@@ -58,27 +58,27 @@ public class CodeGenerator {
     }
 
     public static String generateService(GenerateParam param) {
-        log.info("生成Service代码");
+        log.info("生成{}表的Service代码", param.getTableName());
         return templateEngine().process("Service", getServiceContext(param));
     }
 
     public static String generateIService(GenerateParam param) {
-        log.info("生成Service接口代码");
+        log.info("生成{}表的Service接口代码", param.getTableName());
         return templateEngine().process("IService", getIServiceContext(param));
     }
 
     public static String generateController(GenerateParam param) {
-        log.info("生成Controller代码");
+        log.info("生成{}表的Controller代码", param.getTableName());
         return templateEngine().process("Controller", getControllerContext(param));
     }
 
     public static String generateMapper(GenerateParam param) {
-        log.info("生成Mapper代码");
+        log.info("生成{}表的Mapper代码", param.getTableName());
         return templateEngine().process("Mapper", getMapperContext(param));
     }
 
     public static String generateMapperXml(GenerateParam param) {
-        log.info("生成Mapper的XML代码");
+        log.info("生成{}表的Mapper的XML代码", param.getTableName());
         return templateEngine().process("MapperImpl", getMapperXMLContext(param));
     }
 
