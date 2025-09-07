@@ -21,16 +21,7 @@ git clone https://github.com/Tomatos03/code-generator.git
 > [!NOTE]
 > 默认使用的JDBC实现是Mariadb
 
-3. 在 `application-dev.yml` 配置文件中配置数据库连接和代码生成器配置, 代码生成器可配置属性如下表所示：
-
-| 属性名                                      | 示例值              | 说明                                         |
-|---------------------------------------------|---------------------|----------------------------------------------|
-| `code-generator.author`                                   | "Tomatos"           | 生成代码时注释中的作者信息                    |
-| `code-generator.package-name`                             | "org.demo.study"    | 生成代码的基础包名                            |
-| `code-generator.table-prefix`                             | "sys_"              | 数据库表名前缀，生成代码时会自动去除该前缀      |
-| `code-generator.path-rule-map.[模块名].model-path`         | "service"           | 指定各模块生成的子包路径                      |
-| `code-generator.path-rule-map.[模块名].suffix`             | "Service"           | 指定各模块生成类名的后缀                      |
-| `code-generator.path-rule-map.[模块名].prefix`             | "I"                 | 指定各模块生成类名的前缀                      |
+3. 在 `application-dev.yml` 配置文件中配置数据库连接和代码生成器配置, 代码生成器可配置属性参考`示例配置`
 
 > [!NOTE]
 > `[模块名]` 可选值：`entity`、`condition-entity`、`dto-entity`、`controller`、`service-interface`、`service`、`mapper`、`mapper-xml`
@@ -66,12 +57,30 @@ git clone https://github.com/Tomatos03/code-generator.git
 ```
 
 ### 示例配置
+| 属性名                                      | 说明                    |
+|-----------------------------------------------------|-----------------------------------|
+| `code-generator.author`                       | 生成代码时注释中的作者信息         |
+| `code-generator.package-name`                 | 生成代码的基础包名             |
+| `code-generator.table-prefix`                 | 数据库表名前缀，生成代码时会自动去除该前缀 |
+| `code-generator.class-ignore-fields`          | 生成类的时候忽略部分属性          |
+| `code-generator.path-rule-map.[模块名].model-path` | 指定各模块生成的子包路径          |
+| `code-generator.path-rule-map.[模块名].suffix`   | 指定各模块生成类名的后缀          |
+| `code-generator.path-rule-map.[模块名].prefix`   | 指定各模块生成类名的前缀          |
 
 ```yaml
 code-generator:
   author: "Tomatos"
   package-name: "org.demo.study"
   table-prefix: "sys_"
+  class-ignore-fields:
+    - id
+    - createUserId
+    - createUserName
+    - createTime
+    - updateUserId
+    - updateUserName
+    - updateTime
+    - isDel
   path-rule-map:
     service-interface:
       model-path: "service"
