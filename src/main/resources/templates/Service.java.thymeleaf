@@ -42,7 +42,7 @@ public class [[${serviceClassName}]] implements [[${serviceInterfaceClassName}]]
 
     @Override
     public List<[[${dtoClassName}]]> [[${query}]]ByCondition([[${conditionClassName}]] condition) {
-        List<[[${entityClassName}]]> entities = [[${mapperInstance}]].queryByCondition(condition);
+        List<[[${entityClassName}]]> entities = [[${mapperInstance}]].[[${query}]]ByCondition(condition);
         return entities.stream()
                        .map(entity -> BeanUtil.copyProperties(entity, [[${dtoClassName}]].class))
                        .toList();
