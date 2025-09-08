@@ -16,11 +16,17 @@ code-generator:
   author: "Tomatos"
   package-name: "org.demo.study"
   table-prefix: "sys_" # 实际的类名 = 表名去掉表前缀首写第一个大写字母
+  common-request-path: "/v1"
   custom-method-name:
     add: "insert"
     delete: "delete"
     update: "update"
     query: "search"
+  custom-method-request:
+    add: "/custom_add"
+    delete: "/delete"
+    update: "/update"
+    query: "/searchByCondition"
   class-ignore-fields:
     - id
     - createUserId
