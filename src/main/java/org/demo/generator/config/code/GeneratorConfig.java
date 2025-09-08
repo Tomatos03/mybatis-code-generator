@@ -22,9 +22,16 @@ public class GeneratorConfig {
     private String author;
     private String packageName;
     private String tablePrefix;
+    private String commonRequestPath;
     private Set<String> classIgnoreFields;
     private Map<String, PathRule> pathRuleMap;
     private Map<String, String> customMethodName = Map.of(
+            "add", "add",
+            "delete", "delete",
+            "update", "update",
+            "query", "query"
+    );
+    private Map<String, String> customMethodRequest = Map.of(
             "add", "add",
             "delete", "delete",
             "update", "update",

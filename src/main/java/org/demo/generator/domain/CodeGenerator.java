@@ -31,7 +31,9 @@ public class CodeGenerator {
 
     public static GeneratorConfig generatorConfig() {
         return SpringContextUtil.getBean(GeneratorConfig.class);
-    };
+    }
+
+    ;
 
     public static String generateEntity(GenerateParam param) {
         log.info("生成{}表的Entity代码", param.getTableName());
@@ -85,7 +87,8 @@ public class CodeGenerator {
     private static List<ColumnInfo> convert(List<ColumnInfo> columnInfos) {
         return columnInfos.stream()
                           .peek(columnInfo -> {
-                              columnInfo.setType(DbTypeConvert.convertToJavaType(columnInfo.getType()));
+                              columnInfo.setType(
+                                      DbTypeConvert.convertToJavaType(columnInfo.getType()));
                               columnInfo.setName(StrUtil.toCamelCase(columnInfo.getDbName()));
                               // 当前列是否为String类型
                               columnInfo.setString("String".equals(columnInfo.getType()));
@@ -143,14 +146,17 @@ public class CodeGenerator {
         context.setVariable("mapperModelName", getModelName(MAPPER));
         context.setVariable("mapperInstance", mapperInstance);
         context.setVariable("serviceModelName", getModelName(SERVICE));
-        context.setVariable("serviceClassName", buildConcatenatedClassName(SERVICE, param.getClassName()));
-        context.setVariable("serviceInterfaceClassName", buildConcatenatedClassName(SERVICE_INTERFACE,
-                                                                            param.getClassName()));
+        context.setVariable("serviceClassName",
+                            buildConcatenatedClassName(SERVICE, param.getClassName()));
+        context.setVariable("serviceInterfaceClassName",
+                            buildConcatenatedClassName(SERVICE_INTERFACE,
+                                                       param.getClassName()));
         context.setVariable("serviceInterfaceModelName", getModelName(SERVICE_INTERFACE));
         context.setVariable("dtoClassName", buildConcatenatedClassName(DTO,
                                                                        param.getClassName()));
         context.setVariable("dtoModelName", getModelName(DTO));
-        context.setVariable("entityClassName", buildConcatenatedClassName(ENTITY, param.getClassName()));
+        context.setVariable("entityClassName",
+                            buildConcatenatedClassName(ENTITY, param.getClassName()));
         context.setVariable("entityModelName", getModelName(ENTITY));
         context.setVariable("conditionClassName", buildConcatenatedClassName(CONDITION,
                                                                              param.getClassName()));
@@ -161,7 +167,8 @@ public class CodeGenerator {
     private static Context getIServiceContext(GenerateParam param) {
         Context context = new Context();
         setCommonVar(context, param);
-        String serviceInterfaceClassName = buildConcatenatedClassName(SERVICE_INTERFACE, param.getClassName());
+        String serviceInterfaceClassName = buildConcatenatedClassName(SERVICE_INTERFACE,
+                                                                      param.getClassName());
         context.setVariable("serviceInterfaceClassName", serviceInterfaceClassName);
         context.setVariable("serviceInterfaceModelName", getModelName(SERVICE_INTERFACE));
         context.setVariable("dtoClassName", buildConcatenatedClassName(DTO,
@@ -178,19 +185,28 @@ public class CodeGenerator {
         setCommonVar(context, param);
         context.setVariable("requestPath", param.getRequestPath());
 
-        String serviceInstance = StrUtil.lowerFirst(buildConcatenatedClassName(SERVICE, param.getClassName()));
+        String serviceInstance = StrUtil.lowerFirst(
+                buildConcatenatedClassName(SERVICE, param.getClassName()));
 
-        context.setVariable("serviceInterfaceClassName", buildConcatenatedClassName(SERVICE_INTERFACE, param.getClassName()));
+        context.setVariable("serviceInterfaceClassName",
+                            buildConcatenatedClassName(SERVICE_INTERFACE, param.getClassName()));
         context.setVariable("serviceInterfaceModelName", getModelName(SERVICE_INTERFACE));
         context.setVariable("serviceInstance", serviceInstance);
-        context.setVariable("controllerClassName", buildConcatenatedClassName(CONTROLLER, param.getClassName()));
+        context.setVariable("controllerClassName",
+                            buildConcatenatedClassName(CONTROLLER, param.getClassName()));
         context.setVariable("controllerModelName", getModelName(CONTROLLER));
         context.setVariable("dtoClassName", buildConcatenatedClassName(DTO,
                                                                        param.getClassName()));
         context.setVariable("dtoModelName", getModelName(DTO));
         context.setVariable("conditionClassName", buildConcatenatedClassName(CONDITION,
-                                                                       param.getClassName()));
+                                                                             param.getClassName()));
         context.setVariable("conditionModelName", getModelName(CONDITION));
+        context.setVariable("commonRequestPath", generatorConfig().getCommonRequestPath());
+
+        generatorConfig().getCustomMethodRequest()
+                         .forEach((key, value) ->
+                                          context.setVariable(key + "RequestPath", value)
+                         );
         return context;
     }
 
@@ -212,13 +228,17 @@ public class CodeGenerator {
 
     private static void setCommonVar(Context context, GenerateParam param) {
         context.setVariable("author", param.getAuthor());
-        context.setVariable("nowDateTime", LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        context.setVariable("nowDateTime", LocalDate.now()
+                                                    .format(DateTimeFormatter.ofPattern(
+                                                            "yyyy-MM-dd")));
         context.setVariable("packageName", param.getPackageName());
         context.setVariable("className", param.getClassName());
-        generatorConfig().getCustomMethodName().forEach(context::setVariable);
+        generatorConfig().getCustomMethodName()
+                         .forEach(context::setVariable);
 
         List<ColumnInfo> columns = param.getColumns();
-        columns.get(columns.size() - 1).setEndColumn(true);
+        columns.get(columns.size() - 1)
+               .setEndColumn(true);
     }
 
     private static Context getMapperXMLContext(GenerateParam param) {

@@ -14,7 +14,7 @@ import java.util.List;
  * @date [[${nowDateTime}]]
  */
 @RestController
-@RequestMapping("/[[${requestPath}]]")
+@RequestMapping("[[${commonRequestPath}]]")
 public class [[${controllerClassName}]] {
 
     @Autowired
@@ -23,40 +23,40 @@ public class [[${controllerClassName}]] {
     /**
      * 新增
      */
-    @PostMapping("/[[${add}]]")
-    public int [[${add}]](@RequestBody [[${className}]]DTO dto) {
+    @PostMapping("[[${addRequestPath}]]")
+        public int [[${addRequestPath}]](@RequestBody [[${className}]]DTO dto) {
         return [[${serviceInstance}]].insert(dto);
     }
 
     /**
      * 修改
      */
-    @PutMapping("/[[${update}]]")
-    public int [[${update}]](@RequestBody [[${className}]]DTO dto) {
+        @PutMapping("[[${updateRequestPath}]]")
+        public int [[${updateRequestPath}]](@RequestBody [[${className}]]DTO dto) {
         return [[${serviceInstance}]].update(dto);
     }
 
     /**
      * 删除
      */
-    @DeleteMapping("/[[${delete}]]/{id}")
-    public int [[${delete}]](@PathVariable Long id) {
+        @DeleteMapping("[[${deleteRequestPath}]]/{id}")
+        public int [[${deleteRequestPath}]](@PathVariable Long id) {
         return [[${serviceInstance}]].delete(id);
     }
 
     /**
      * 条件查询
      */
-    @PostMapping("/[[${query}]]")
-    public List<[[${dtoClassName}]]> [[${query}]]ByCondition(@RequestBody [[${conditionClassName}]] condition) {
+        @PostMapping("[[${queryRequestPath}]]")
+        public List<[[${dtoClassName}]]> [[${queryRequestPath}]]ByCondition(@RequestBody [[${conditionClassName}]] condition) {
         return [[${serviceInstance}]].searchByCondition(condition);
     }
 
     /**
      * 批量删除
      */
-    @PostMapping("/[[${delete}]]ByIds")
-    public int [[${delete}]]ByIds(@RequestBody List<Long> ids) {
+        @PostMapping("[[${deleteRequestPath}]]ByIds")
+        public int [[${deleteRequestPath}]]ByIds(@RequestBody List<Long> ids) {
         return [[${serviceInstance}]].deleteByIds(ids);
     }
 }
